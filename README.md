@@ -1,0 +1,3 @@
+# BakkesTest
+
+Simple first test plugin that fires goal event with player name ect ...
