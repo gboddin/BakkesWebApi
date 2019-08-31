@@ -10,7 +10,7 @@ using namespace std::placeholders;
 void BakkesTest::onLoad() {
 	cvarManager->log("Some POC Plugin has been loaded :o why are you running this ?");
 	// Clean player stats from our OldPlayersState when game starts
-	gameWrapper->HookEventPost("Function Engine.OnlineSubsystem.OnlineMatchStart", bind(&BakkesTest::ClearGoalStats, this, _1));
+	gameWrapper->HookEventPost("Function TAGame.PlayerController_TA.PostBeginPlay", bind(&BakkesTest::ClearGoalStats, this, _1));
 	// If someones moves team ( or join, or you join and they're in a team ), updates stats
 	gameWrapper->HookEventPost("Function TAGame.GFxData_PRI_TA.HandleTeamChanged", bind(&BakkesTest::UpdateGoalStats, this, _1));
 	// That's fired everytime someone scores. Also Pri.GetGoals is updated before this is fired
