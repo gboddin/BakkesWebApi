@@ -74,7 +74,7 @@ string BakkesTest::GetGoalScoredEvent(PriWrapper player) {
 
 json::JSON BakkesTest::JsonPriWrapper(PriWrapper player) {
 	json::JSON json_player;
-	json_player["PlayerName"] = player.GetPlayerID();
+	json_player["PlayerID"] = player.GetPlayerID();
 	json_player["PlayerName"] = player.GetPlayerName().ToString();
 	json_player["MatchGoals"] = player.GetMatchGoals();
 	json_player["MatchAssists"] = player.GetMatchAssists();
