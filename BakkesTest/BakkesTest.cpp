@@ -74,18 +74,28 @@ string BakkesTest::GetGoalScoredEvent(PriWrapper player) {
 
 json::JSON BakkesTest::JsonPriWrapper(PriWrapper player) {
 	json::JSON json_player;
+	json_player["PlayerName"] = player.GetPlayerID();
 	json_player["PlayerName"] = player.GetPlayerName().ToString();
 	json_player["MatchGoals"] = player.GetMatchGoals();
 	json_player["MatchAssists"] = player.GetMatchAssists();
+	json_player["MatchScore"] = player.GetMatchScore();
+	json_player["Kills"] = player.GetKills();
+	json_player["BallTouches"] = player.GetBallTouches();
+	json_player["TotalGameTimePlayed"] = player.GetTotalGameTimePlayed();
 	json_player["TeamInfo"] = BakkesTest::JsonTeamInfoWrapper(player.GetTeam());
 	return json_player;
 }
 
 json::JSON BakkesTest::JsonTeamInfoWrapper(TeamInfoWrapper team) {
 	json::JSON json_team;
-	json_team["TeamName"] = team.GetTeamName().ToString();
+	json_team["TeamIndex"] = team.GetTeamIndex();
+	json_team["TeamNum"] = team.GetTeamNum();
+	json_team["TeamNum2"] = team.GetTeamNum2();
+	json_team["Size"] = team.GetSize();
 	return json_team;
 }
+
+
 
 void BakkesTest::RunWsServer() {
 	// Init websocket server
