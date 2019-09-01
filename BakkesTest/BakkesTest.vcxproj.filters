@@ -24,4 +24,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
+  <ItemGroup>
+    <None Include="goals.html">
+      <Filter>Resource Files</Filter>
+    </None>
+  </ItemGroup>
 </Project>

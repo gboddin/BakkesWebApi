@@ -1,0 +1,19 @@
+<HTML>
+<HEAD>
+<META NAME="GENERATOR" Content="Microsoft Visual Studio">
+<TITLE>WSLOG</TITLE>
+    <script type="text/javascript">
+        webSocket = new WebSocket("ws://localhost:8323");
+        webSocket.onmessage = function (event) {
+            document.getElementById("ws_log").innerHTML = event.data;
+        }
+    </script>
+</HEAD>
+<BODY>
+    <div id="ws_log">
+        NOTHING
+    </div>
+
+
+</BODY>
+</HTML>
