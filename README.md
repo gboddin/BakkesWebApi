@@ -1,14 +1,20 @@
-# BakkesTest
+# BakkesWebApi
 
-Is gonna be renamed to Events2Ws soon enough.
+The goal is to have a Rocket League stats/event web API to be used : 
 
-The goal is to allow HTML/CSS/JS widgets to be used in OBS or any streaming solution supporting HTML.
+- External statistics gathering
+- Applications or bots
+- HTML/CSS/JS widgets to be used in OBS (or any streaming solution supporting transparent HTML).
 
-Websocker URL when running : `ws://localhost:8323`
+## Endpoint
 
-To come :
+HTTP API  : `in progress`
+Websocket : `ws://localhost:8323`
+
+## To come
  - More events
- - Some CSS animated widgets
+ - HTTP API
+ - Some more CSS animated widgets
 
  Libraries required :
 

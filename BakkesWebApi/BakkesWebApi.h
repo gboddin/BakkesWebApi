@@ -22,7 +22,7 @@ struct PlayerState {
 
 };
 
-class BakkesTest : public BakkesMod::Plugin::BakkesModPlugin
+class BakkesWebApi : public BakkesMod::Plugin::BakkesModPlugin
 {
 public:
 

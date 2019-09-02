@@ -20,10 +20,11 @@
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>15.0</VCProjectVersion>
-    <ProjectGuid>{54D28FB9-7BAD-4C14-8788-236303F7DF1E}</ProjectGuid>
+    <ProjectGuid>{DCA29E11-A90E-4840-B2AE-BFCC4EA5B444}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
     <RootNamespace>BakkesTest</RootNamespace>
     <WindowsTargetPlatformVersion>10.0.17763.0</WindowsTargetPlatformVersion>
+    <ProjectName>BakkesWebApi</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -150,10 +151,10 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="BakkesTest.h" />
+    <ClInclude Include="BakkesWebApi.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="BakkesTest.cpp" />
+    <ClCompile Include="BakkesWebApi.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\README.md" />
