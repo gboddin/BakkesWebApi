@@ -6,8 +6,6 @@ using websocketpp::connection_hdl;
 BAKKESMOD_PLUGIN(BakkesWebApi, "Stat n stuff over ws", "0.0.2", PLUGINTYPE_THREADED)
 
 void BakkesWebApi::onLoad() {
-	// Hook events :
-	cvarManager->log("Some POC Plugin has been loaded :o why are you running this ?");
 	// Clean player stats from our OldPlayersState when game starts
 	gameWrapper->HookEventPost("Function TAGame.PlayerController_TA.PostBeginPlay", std::bind(&BakkesWebApi::ClearGoalStats, this, std::placeholders::_1));
 	// If someones moves team ( or join, or you join and they're in a team ), updates stats
@@ -73,6 +71,7 @@ void BakkesWebApi::RunWsServer() {
 	ws_server->listen(8323);
 	ws_server->start_accept();
 	ws_server->run();
+	cvarManager->log("BakkesWebApi socket running at ws://127.0.0.1:8323");
 }
 
 
@@ -89,9 +88,7 @@ void BakkesWebApi::OnWsClose(connection_hdl hdl) {
 
 void BakkesWebApi::SendWsPayload(std::string payload) {
 	// broadcast to all connections
-	gameWrapper->LogToChatbox("SendWSPayload");
 	for (connection_hdl it : *ws_connections) {
-		gameWrapper->LogToChatbox("SendWSPayload:connection");
 		ws_server->send(it, payload, websocketpp::frame::opcode::text);
 	}
 }
