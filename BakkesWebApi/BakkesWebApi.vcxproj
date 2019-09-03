@@ -152,6 +152,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="BakkesWebApi.h" />
+    <ClInclude Include="JsonExport.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="BakkesWebApi.cpp" />
