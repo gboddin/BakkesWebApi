@@ -27,10 +27,15 @@ public:
 	virtual void onLoad();
 	virtual void onUnload();
 private:
-	void UpdateGoalStats(std::string eventNam);
-	void ClearGoalStats(std::string eventName);
+	void HookMatchStarted(std::string eventNam);
+	void HookPlayerChanged(std::string eventNam);
+	void HookGoalScored(std::string eventNam);
+	void UpdateGoalStats();
+	void ClearGoalStats();
 	void RunWsServer();
 	void OnWsOpen(connection_hdl hdl);
+	void OnHttpRequest(websocketpp::connection_hdl hdl);
+
 	void OnWsClose(connection_hdl hdl);
 	void SendWsPayload(string payload);
 	PlayerState OldPlayersStates[16];
