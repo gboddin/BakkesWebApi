@@ -41,6 +41,7 @@ public:
 		json_player["BallTouches"] = player.GetBallTouches();
 		json_player["TeamInfo"] = this->wrapper(player.GetTeam());
 		json_player["MMR"] = this->GetPlayerMMR(player);
+		json_player["CurrentBoostAmount"] = player.GetCar().GetBoostComponent().GetCurrentBoostAmount();
 		return json_player;
 	}
 	json::JSON event(string eventName, PriWrapper player) {

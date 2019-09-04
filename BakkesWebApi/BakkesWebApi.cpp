@@ -3,7 +3,7 @@
 #include "BakkesWebApi.h"
 using websocketpp::connection_hdl;
 
-BAKKESMOD_PLUGIN(BakkesWebApi, "Stat n stuff over ws", "0.0.2", PLUGINTYPE_THREADED)
+BAKKESMOD_PLUGIN(BakkesWebApi, "BakkesWebApi", "0.0.3", PLUGINTYPE_THREADED)
 
 void BakkesWebApi::onLoad() {
 	// Clean player stats from our OldPlayersState when game starts
@@ -131,7 +131,7 @@ void BakkesWebApi::OnWsClose(connection_hdl hdl) {
 void BakkesWebApi::SendWsPayload(std::string payload) {
 	// broadcast to all connections
 	for (connection_hdl it : *ws_connections) {
-		ws_server->send(it, payload, websocketpp::frame::opcode::text);
+		ws_server->send(it, payload , websocketpp::frame::opcode::text);
 	}
 }
 
