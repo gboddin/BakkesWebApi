@@ -3,7 +3,7 @@
 #include "BakkesWebApi.h"
 using websocketpp::connection_hdl;
 using std::placeholders::_1;
-BAKKESMOD_PLUGIN(BakkesWebApi, "BakkesWebApi", "0.1.0", PLUGINTYPE_THREADED)
+BAKKESMOD_PLUGIN(BakkesWebApi, "BakkesWebApi", "0.1.1", PLUGINTYPE_THREADED)
 
 void BakkesWebApi::onLoad() {
 	// Clean player stats from our OldPlayersState when game starts
