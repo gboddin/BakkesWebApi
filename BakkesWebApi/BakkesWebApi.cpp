@@ -145,7 +145,16 @@ void BakkesWebApi::UpdateTeamsState() {
 		for (int a = 0; a < teams.Count(); a++) {
 			TeamsState[a].Dirty = false;
 			TeamsState[a].Goals = teams.Get(a).GetScore();
-			TeamsState[a].Name = teams.Get(a).GetSanitizedTeamName().ToString();
+			if (!teams.Get(a).GetSanitizedTeamName().IsNull()) {
+				TeamsState[a].Name = teams.Get(a).GetSanitizedTeamName().ToString();
+			}
+			else if (teams.Get(a).GetTeamIndex() == 1) {
+				TeamsState[a].Name = "Orange";
+			}
+			else {
+				TeamsState[a].Name = "Blue";
+			}
+			
 		}
 	}
 }
