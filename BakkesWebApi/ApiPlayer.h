@@ -14,6 +14,7 @@ public:
 	int Kills;
 	int BallTouches;
 	float CurrentBoostAmount;
+	int TeamNum;
 	boolean IsBot;
 	json::JSON getJson() {
 		json::JSON json_player;
@@ -23,10 +24,12 @@ public:
 		json_player["Assists"] = Assists;
 		json_player["Saves"] = Saves;
 		json_player["PlayerID"] = PlayerID;
+		json_player["PlayerUniqueID"] = PlayerUniqueID;
 		json_player["Kills"] = Kills;
 		json_player["BallTouches"] = BallTouches;
 		json_player["CurrentBoostAmount"] = CurrentBoostAmount;
-		json_player["PlayerUniqueID"] = PlayerUniqueID;
+		json_player["TeamNum"] = TeamNum;
+		json_player["IsBot"] = IsBot;
 		return json_player;
 	};
 };

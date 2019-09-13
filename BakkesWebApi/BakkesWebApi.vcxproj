@@ -154,14 +154,14 @@
     <ClInclude Include="ApiPlayer.h" />
     <ClInclude Include="ApiTeam.h" />
     <ClInclude Include="BakkesWebApi.h" />
-    <ClInclude Include="Game.h" />
+    <ClInclude Include="ApiGame.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="BakkesWebApi.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="..\goals.html" />
     <None Include="..\README.md" />
-    <None Include="goals.html" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

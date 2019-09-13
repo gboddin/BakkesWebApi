@@ -1,16 +1,21 @@
 <HTML>
 <HEAD>
-<META NAME="GENERATOR" Content="Microsoft Visual Studio">
-<TITLE>WSLOG</TITLE>
+<TITLE>Notifier</TITLE>
     <script type="text/javascript">
         webSocket = new WebSocket("ws://localhost:8323");
         webSocket.onmessage = function (event) {
             rocket_event = JSON.parse(event.data);
-            document.getElementById("ws_log").innerHTML = rocket_event.player.PlayerName + " has scored " + rocket_event.player.MatchGoals + " goals!"
-            document.getElementById('ws_log').classList.remove("slide-out-blurred-left");
-            setTimeout(function () {
-                document.getElementById('ws_log').classList.add("slide-out-blurred-left");
-            },3000);
+            switch (rocket_event.event) {
+                case "goal_scored":
+                    document.getElementById("notif_text").innerHTML = rocket_event.player.PlayerName + " has scored " + rocket_event.player.Goals + " goals!"
+                    document.getElementById('notif_box').classList.remove("slide-out-blurred-left");
+                    setTimeout(function () {
+                        document.getElementById('notif_box').classList.add("slide-out-blurred-left");
+                    }, 5000);
+                    break;
+                default:
+
+            }
         }
     </script>
     <style>
@@ -188,20 +193,23 @@
 
     </style>
     <style>
+
         .blackbox {
-            padding: 10px;
-            font-size: 30px;
-            color:white;
+            font-size: 2em;
+            font-family: sans-serif;;
+            color: #e28400;
             width: 600px;
-            background-color: black;
+            background-color: rgba(40,40,40, 0.7);
+            box-shadow: 1px 2px 4px rgba(0, 0, 0, .5);
+        }
+        .blackbox p {
+            padding: 5px;
         }
     </style>
 </HEAD>
 <BODY>
-    <div id="ws_log" class="bounce-in-top slide-out-blurred-left blackbox">
-        NOTHING
+    <div id="notif_box" class="bounce-in-top slide-out-blurred-left blackbox">
+        <p id="notif_text">Widget loaded</p>
     </div>
-
-
 </BODY>
 </HTML>

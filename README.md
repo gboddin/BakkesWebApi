@@ -11,6 +11,8 @@ The goal is to have a Rocket League stats/event web API to be used :
 
 Address: ws://localhost:8323
 
+There are 2 events atm : `goal_scored` and `game_changed`, feel free to open issues with new requests.
+
 ```json
 {
   "event" : "goal_scored",
@@ -27,6 +29,16 @@ Address: ws://localhost:8323
     "Saves" : 0
   }
 }
+{
+  "event" : "game_changed",
+  "game" : {
+    "PlaylistId" : 2,
+    "PlaylistName" : "Casual Doubles",
+    "SecondsElapsed" : 188.442749,
+    "SecondsRemaining" : 198,
+    "TeamSize" : 2
+  }
+}
 ```
 
 ## HTTP Endpoint
@@ -39,17 +51,19 @@ Gets the current player details
 
 ```json
 {
-    "Assists" : 2,
-    "BallTouches" : 34,
-    "CurrentBoostAmount" : 0.854902,
-    "Goals" : 0,
+    "Assists" : 0,
+    "BallTouches" : 22,
+    "CurrentBoostAmount" : 0.714390,
+    "Goals" : 4,
+    "IsBot" : 0,
     "Kills" : 0,
-    "MMR" : 1391.078003,
-    "Name" : "Noobimode",
-    "PlayerID" : 27763934,
-    "PlayerUniqueID" : 27763934,
-    "Saves" : 0
-  }
+    "MMR" : 1074.588013,
+    "PlayerID" : 540,
+    "PlayerName" : "L E X",
+    "PlayerUniqueID" : 17419247,
+    "Saves" : 1,
+    "TeamNum" : 0
+}
 ```
 
 ### `/players`
@@ -58,104 +72,109 @@ Get details from all players in the game
 
 ```json
 [{
-    "Assists" : 2,
-    "BallTouches" : 34,
-    "CurrentBoostAmount" : 0.854902,
+    "Assists" : 0,
+    "BallTouches" : 0,
+    "CurrentBoostAmount" : 0.333000,
     "Goals" : 0,
+    "IsBot" : 0,
     "Kills" : 0,
-    "MMR" : 1391.078003,
-    "Name" : "Noobimode",
-    "PlayerID" : 27763934,
+    "MMR" : 1332.083984,
+    "PlayerID" : 349,
+    "PlayerName" : "Noobimode",
     "PlayerUniqueID" : 27763934,
-    "Saves" : 0
-  }, {
-    "Assists" : 1,
-    "BallTouches" : 30,
-    "CurrentBoostAmount" : 0.898039,
-    "Goals" : 1,
-    "Kills" : 0,
-    "MMR" : 1334.280029,
-    "Name" : "Hollow_Itchigo",
-    "PlayerID" : 27763934,
-    "PlayerUniqueID" : 285014072,
-    "Saves" : 0
+    "Saves" : 0,
+    "TeamNum" : 0
   }, {
     "Assists" : 0,
-    "BallTouches" : 37,
-    "CurrentBoostAmount" : 0.219608,
-    "Goals" : 1,
+    "BallTouches" : 0,
+    "CurrentBoostAmount" : 0.333333,
+    "Goals" : 0,
+    "IsBot" : 0,
     "Kills" : 0,
-    "MMR" : 1016.713989,
-    "Name" : "bola_89",
-    "PlayerID" : 27763934,
-    "PlayerUniqueID" : 1205544678,
-    "Saves" : 1
+    "MMR" : 864.298035,
+    "PlayerID" : 350,
+    "PlayerName" : "TIGERNAYLOR",
+    "PlayerUniqueID" : 97585630,
+    "Saves" : 0,
+    "TeamNum" : 1
   }, {
     "Assists" : 0,
-    "BallTouches" : 32,
-    "CurrentBoostAmount" : 0.686275,
-    "Goals" : 3,
+    "BallTouches" : 0,
+    "CurrentBoostAmount" : 0.333333,
+    "Goals" : 0,
+    "IsBot" : 0,
     "Kills" : 0,
-    "MMR" : 1174.307983,
-    "Name" : "SirMDRuffy",
-    "PlayerID" : 27763934,
-    "PlayerUniqueID" : 2066629203,
-    "Saves" : 0
+    "MMR" : 1155.297974,
+    "PlayerID" : 351,
+    "PlayerName" : "Hawt Rybz",
+    "PlayerUniqueID" : -1532239573,
+    "Saves" : 0,
+    "TeamNum" : 1
   }, {
     "Assists" : 0,
-    "BallTouches" : 17,
-    "CurrentBoostAmount" : 0.078431,
+    "BallTouches" : 0,
+    "CurrentBoostAmount" : 0.333333,
     "Goals" : 0,
+    "IsBot" : 0,
     "Kills" : 0,
-    "MMR" : 495.686005,
-    "Name" : "BRSI-SB",
-    "PlayerID" : 27763934,
-    "PlayerUniqueID" : 1395579408,
-    "Saves" : 0
+    "MMR" : 1470.308105,
+    "PlayerID" : 352,
+    "PlayerName" : "cal c00l",
+    "PlayerUniqueID" : 94007169,
+    "Saves" : 0,
+    "TeamNum" : 1
   }, {
     "Assists" : 0,
-    "BallTouches" : 17,
-    "CurrentBoostAmount" : 0.113725,
+    "BallTouches" : 0,
+    "CurrentBoostAmount" : 0.333333,
     "Goals" : 0,
+    "IsBot" : 0,
     "Kills" : 0,
-    "MMR" : 495.686005,
-    "Name" : "BRSI-SB",
-    "PlayerID" : 27763934,
-    "PlayerUniqueID" : 1395579408,
-    "Saves" : 0
+    "MMR" : 699.049988,
+    "PlayerID" : 353,
+    "PlayerName" : "MyFing3rSlipp3d",
+    "PlayerUniqueID" : 1151246163,
+    "Saves" : 0,
+    "TeamNum" : 1
   }, {
-    "Assists" : 2,
-    "BallTouches" : 35,
-    "CurrentBoostAmount" : 0.129412,
+    "Assists" : 0,
+    "BallTouches" : 0,
+    "CurrentBoostAmount" : 0.333333,
     "Goals" : 0,
+    "IsBot" : 0,
     "Kills" : 0,
-    "MMR" : 1073.645996,
-    "Name" : "KingRotia",
-    "PlayerID" : 27763934,
-    "PlayerUniqueID" : 2072219851,
-    "Saves" : 1
-  }, {
-    "Assists" : 2,
-    "BallTouches" : 35,
-    "CurrentBoostAmount" : 0.796079,
-    "Goals" : 0,
-    "Kills" : 0,
-    "MMR" : 1073.645996,
-    "Name" : "KingRotia",
-    "PlayerID" : 27763934,
-    "PlayerUniqueID" : 2072219851,
-    "Saves" : 1
+    "MMR" : 1234.656006,
+    "PlayerID" : 354,
+    "PlayerName" : "Dave-J07",
+    "PlayerUniqueID" : -1027782561,
+    "Saves" : 0,
+    "TeamNum" : 0
   }, {
     "Assists" : 0,
     "BallTouches" : 0,
     "CurrentBoostAmount" : 0.000000,
     "Goals" : 0,
+    "IsBot" : 1,
     "Kills" : 0,
-    "MMR" : 1086.732056,
-    "Name" : "KingRotia",
-    "PlayerID" : 27763934,
-    "PlayerUniqueID" : 2072219851,
-    "Saves" : 0
+    "MMR" : 100.019989,
+    "PlayerID" : 0,
+    "PlayerName" : "Heater",
+    "PlayerUniqueID" : 0,
+    "Saves" : 0,
+    "TeamNum" : 0
+  }, {
+    "Assists" : 0,
+    "BallTouches" : 0,
+    "CurrentBoostAmount" : 0.000000,
+    "Goals" : 0,
+    "IsBot" : 1,
+    "Kills" : 0,
+    "MMR" : 100.019989,
+    "PlayerID" : 0,
+    "PlayerName" : "Scout",
+    "PlayerUniqueID" : 0,
+    "Saves" : 0,
+    "TeamNum" : 0
   }]
 ```
 
@@ -165,12 +184,27 @@ Get teams informations
 
 ```json
 [{
-    "Goals" : 3,
-    "Name" : "M&M'S"
+    "Goals" : 2,
+    "Name" : "Blue"
   }, {
-    "Goals" : 0,
-    "Name" : "10100111"
-}]
+    "Goals" : 2,
+    "Name" : "1up2down"
+  }]
+```
+
+
+### `/game`
+
+Get current game info
+
+```json
+{
+  "PlaylistId" : 6,
+  "PlaylistName" : "Private 1v1",
+  "SecondsElapsed" : 0.000000,
+  "SecondsRemaining" : 0,
+  "TeamSize" : 1
+}
 ```
 
 ## OBS widgets

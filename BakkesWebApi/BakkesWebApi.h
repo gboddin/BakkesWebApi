@@ -9,6 +9,7 @@
 #include "json.hpp"
 #include "ApiPlayer.h"
 #include "ApiTeam.h"
+#include "ApiGame.h"
 #include "bakkesmod/plugin/bakkesmodplugin.h"
 using websocketpp::connection_hdl;
 
@@ -22,7 +23,8 @@ public:
 	virtual void onUnload();
 private:
 	// Hook logic
-	void HookMatchStarted(std::string eventNam);
+	void HookMatchStarted();
+	void HookGameStarted(std::string eventNam);
 	void HookPlayerChanged(std::string eventNam);
 	void HookGoalScored(std::string eventNam);
 
@@ -39,15 +41,54 @@ private:
 	void ClearTeamsState();
 	json::JSON GetTeamsStateJson();
 
-	// Event logic
-	void SendEvent(string eventName, ApiPlayer player);
+	// Game state logic
+	ApiGame GameState;
+	void UpdateGameState();
+	void ClearGameState();
+	json::JSON GetGameStateJson();
 
+	// Event logic
+	void SendEvent(string eventName, ApiGame game);
+	void SendEvent(string eventName, ApiPlayer player);
+	//void SendEvent(string eventName, ApiPlayer player, ApiTeam team);
+	//void SendEvent(string eventName, ApiPlayer player[], ApiTeam team[]);
+	
 	// Server logic
 	BakkesWebApiServer* ws_server;
 	ConnectionSet* ws_connections;
 	void RunWsServer();
-	void OnWsOpen(connection_hdl hdl);
-	void OnHttpRequest(connection_hdl hdl);
-	void OnWsClose(connection_hdl hdl);
+	void OnHttpRequest(connection_hdl hdl);	
 	void SendWsPayload(string payload);
+	void OnWsOpen(connection_hdl hdl) { this->ws_connections->insert(hdl); }
+	void OnWsClose(connection_hdl hdl) { this->ws_connections->erase(hdl); }
+	
+	// Generic game type helper
+	enum GAMETYPE {
+		GAMETYPE_REPLAY = 0,
+		GAMETYPE_ONLINE = 1,
+		GAMETYPE_FREEPLAY = 2,
+		GAMETYPE_TRAINING = 3,
+		GAMETYPE_SPECTATE = 4,
+		GAMETYPE_MENU = 5
+	};
+	ServerWrapper* GetCurrentGameType() {
+		if (gameWrapper->IsInReplay()) {
+			return &this->gameWrapper->GetGameEventAsReplay();
+		}
+		else if (gameWrapper->IsInOnlineGame()) {
+			return &this->gameWrapper->GetOnlineGame();
+		}
+		else if (gameWrapper->IsInFreeplay()) {
+			return &this->gameWrapper->GetGameEventAsServer();
+		}
+		else if (gameWrapper->IsInCustomTraining()) {
+			return &this->gameWrapper->GetGameEventAsServer();
+		}
+		else if (gameWrapper->IsSpectatingInOnlineGame()) {
+			return &this->gameWrapper->GetOnlineGame();
+		}
+		else {
+			return NULL;
+		}
+	}
 };
