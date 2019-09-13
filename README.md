@@ -6,6 +6,7 @@ The goal is to have a Rocket League stats/event web API to be used :
 - Bots
 - Desktop/Mobile applications
 - HTML/CSS/JS widgets to be used in OBS (or any streaming solution supporting transparent HTML).
+  - see https://www.twitch.tv/videos/481056339 for a demo.
 
 ## Websocket events
 

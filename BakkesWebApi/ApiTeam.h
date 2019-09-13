@@ -3,6 +3,8 @@
 
 class ApiTeam {
 public:
+	int TeamNum;
+	int TeamIndex;
 	bool Dirty = true;
 	std::string Name;
 	int Goals;

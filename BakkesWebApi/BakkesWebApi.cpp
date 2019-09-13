@@ -2,7 +2,7 @@
 using websocketpp::connection_hdl;
 using namespace std;
 using placeholders::_1;
-BAKKESMOD_PLUGIN(BakkesWebApi, "BakkesWebApi", "0.2.0", PLUGINTYPE_THREADED)
+BAKKESMOD_PLUGIN(BakkesWebApi, "BakkesWebApi", "0.2.1", PLUGINTYPE_THREADED)
 
 void BakkesWebApi::onLoad() {
 	this->gameWrapper->HookEventPost("Function TAGame.PRI_TA.PostBeginPlay", std::bind(&BakkesWebApi::HookGameStarted, this, _1));
@@ -125,10 +125,12 @@ void BakkesWebApi::UpdateTeamsState() {
 	for (int a = 0; a < teams.Count(); a++) {
 		TeamsState[a].Dirty = false;
 		TeamsState[a].Goals = teams.Get(a).GetScore();
+		TeamsState[a].TeamIndex = teams.Get(a).GetTeamIndex();
+		TeamsState[a].TeamNum = teams.Get(a).GetTeamNum();
 		if (!teams.Get(a).GetSanitizedTeamName().IsNull()) {
 			TeamsState[a].Name = teams.Get(a).GetSanitizedTeamName().ToString();
 		}
-		else if (teams.Get(a).GetTeamIndex() == 1) {
+		else if (TeamsState[a].TeamIndex == 1) {
 			TeamsState[a].Name = "Orange";
 		}
 		else {
