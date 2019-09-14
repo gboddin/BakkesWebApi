@@ -155,7 +155,6 @@
     <ClInclude Include="ApiTeam.h" />
     <ClInclude Include="BakkesWebApi.h" />
     <ClInclude Include="ApiGame.h" />
-    <ClInclude Include="Rank.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="BakkesWebApi.cpp" />

@@ -2,33 +2,7 @@
 #include "json.hpp"
 using namespace std;
 class ApiGame {
-
 public:
-	enum GAMETYPE {
-		GAMETYPE_REPLAY = 0,
-		GAMETYPE_ONLINE = 1,
-		GAMETYPE_FREEPLAY = 2,
-		GAMETYPE_TRAINING = 3,
-		GAMETYPE_SPECTATE = 4,
-		GAMETYPE_MENU = 5
-	};
-	enum PLAYLIST {
-		PLAYLIST_CASUAL_DUEL = 1,
-		PLAYLIST_CASUAL_DOUBLES = 2,
-		PLAYLIST_CASUAL_STANDARD = 3,
-		PLAYLIST_CASUAL_CHAOS = 4,
-		PLAYLIST_MENU = 5,
-		PLAYLIST_PRIVATE = 6,
-		PLAYLIST_FREEPLAY = 9,
-		PLAYLIST_RANKED_DUEL = 10,
-		PLAYLIST_RANKED_DOUBLES = 11,
-		PLAYLIST_RANKED_SOLO = 12,
-		PLAYLIST_RANKED_STANDARD = 13,
-		PLAYLIST_RANKED_HOOPS = 27,
-		PLAYLIST_RANKED_RUMBLE = 28,
-		PLAYLIST_RANKED_DROPSHOT = 29,
-		PLAYLIST_RANKED_SNOWDAY = 30
-	};
 	int PlaylistId = 5;
 	int TeamSize = 0;
 	int SecondsRemaining = 0;
@@ -48,39 +22,39 @@ public:
 	 */
 	std::string GetPlaylistName() {
 		switch (this->PlaylistId) {
-		case(PLAYLIST_CASUAL_DUEL):
+		case(1):
 			return "Casual Duel";
-		case(PLAYLIST_CASUAL_DOUBLES):
+		case(2):
 			return "Casual Doubles";
-		case(PLAYLIST_CASUAL_STANDARD):
+		case(3):
 			return "Casual Standard";
-		case(PLAYLIST_CASUAL_CHAOS):
+		case(4):
 			return "Casual Chaos";
-		case(PLAYLIST_MENU):
+		case(5):
 			return "Menu";
-		case(PLAYLIST_PRIVATE):
+		case(6):
 			return "Private " + to_string(this->TeamSize) + "v" + to_string(this->TeamSize);
-		case(PLAYLIST_FREEPLAY):
+		case(9):
 			return "Freeplay";
-		case(PLAYLIST_RANKED_DUEL):
+		case(10):
 			return "Ranked Duel";
-		case(PLAYLIST_RANKED_DOUBLES):
+		case(11):
 			return "Ranked Doubles";
-		case(PLAYLIST_RANKED_SOLO):
+		case(12):
 			return "Ranked Solo Standard";
-		case(PLAYLIST_RANKED_STANDARD):
+		case(13):
 			return "Ranked Standard";
 		case(14):
 			return "Mutator Mashup";
 		case(22):
 			return "Tournament " + to_string(this->TeamSize) + "v" + to_string(this->TeamSize);
-		case(PLAYLIST_RANKED_HOOPS):
+		case(27):
 			return "Ranked Hoops";
-		case(PLAYLIST_RANKED_RUMBLE):
+		case(28):
 			return "Ranked Rumble";
-		case(PLAYLIST_RANKED_DROPSHOT):
+		case(29):
 			return "Ranked Dropshot";
-		case(PLAYLIST_RANKED_SNOWDAY):
+		case(30):
 			return "Ranked Snowday";
 		default:
 			return "Charting unknown territories";

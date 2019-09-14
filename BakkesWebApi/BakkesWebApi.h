@@ -36,7 +36,7 @@ private:
 	json::JSON GetPlayersStateJson();
 
 	// Team state logic
-	ApiTeam TeamsState[4];
+	ApiTeam TeamsState[2];
 	void UpdateTeamsState();
 	void ClearTeamsState();
 	json::JSON GetTeamsStateJson();
@@ -44,9 +44,8 @@ private:
 	// Game state logic
 	ApiGame GameState;
 	void UpdateGameState();
-	json::JSON GetAllStatesJson();
-
-
+	void ClearGameState();
+	json::JSON GetGameStateJson();
 
 	// Event logic
 	void SendEvent(string eventName, ApiGame game);
@@ -64,7 +63,14 @@ private:
 	void OnWsClose(connection_hdl hdl) { this->ws_connections->erase(hdl); }
 	
 	// Generic game type helper
-
+	enum GAMETYPE {
+		GAMETYPE_REPLAY = 0,
+		GAMETYPE_ONLINE = 1,
+		GAMETYPE_FREEPLAY = 2,
+		GAMETYPE_TRAINING = 3,
+		GAMETYPE_SPECTATE = 4,
+		GAMETYPE_MENU = 5
+	};
 	ServerWrapper* GetCurrentGameType() {
 		if (gameWrapper->IsInReplay()) {
 			return &this->gameWrapper->GetGameEventAsReplay();
