@@ -2,7 +2,7 @@
 using websocketpp::connection_hdl;
 using namespace std;
 using placeholders::_1;
-BAKKESMOD_PLUGIN(BakkesWebApi, "BakkesWebApi", "0.2.1", PLUGINTYPE_THREADED)
+BAKKESMOD_PLUGIN(BakkesWebApi, "BakkesWebApi", "0.2.2", PLUGINTYPE_THREADED)
 
 void BakkesWebApi::onLoad() {
 	this->gameWrapper->HookEventPost("Function TAGame.PRI_TA.PostBeginPlay", std::bind(&BakkesWebApi::HookGameStarted, this, _1));

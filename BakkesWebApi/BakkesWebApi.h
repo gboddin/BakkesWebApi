@@ -36,7 +36,7 @@ private:
 	json::JSON GetPlayersStateJson();
 
 	// Team state logic
-	ApiTeam TeamsState[2];
+	ApiTeam TeamsState[4];
 	void UpdateTeamsState();
 	void ClearTeamsState();
 	json::JSON GetTeamsStateJson();
