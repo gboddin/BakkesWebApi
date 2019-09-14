@@ -11,13 +11,14 @@ void BakkesWebApi::onLoad() {
 	this->gameWrapper->HookEventPost("Function TAGame.ArenaSoundManager_TA.HandlePlayerScored", std::bind(&BakkesWebApi::HookGoalScored, this, _1));
 	this->ws_connections = new ConnectionSet();
 	this->UpdateGameState();
-	RunWsServer();
+	this->RunWsServer();
 }
 
 void BakkesWebApi::HookGameStarted(std::string eventName) {
 	this->ClearPlayersState();
 	this->ClearTeamsState();
 }
+
 void BakkesWebApi::HookPlayerChanged(std::string eventName) {
 	if (gameWrapper->IsInOnlineGame()) {
 		this->UpdatePlayersState();
@@ -39,7 +40,7 @@ void BakkesWebApi::HookGoalScored(std::string eventName) {
 }
 
 void BakkesWebApi::UpdateGameState() {
-	int playlistId = GAMETYPE_MENU;
+	int playlistId = ApiGame::GAMETYPE_MENU;
 	int teamSize = 0;
 	bool gameChanged = false;
 	
@@ -140,6 +141,17 @@ void BakkesWebApi::UpdateTeamsState() {
 	}
 }
 
+json::JSON BakkesWebApi::GetAllStatesJson() {
+	json::JSON json_all;
+	json_all["game"] = this->GameState.getJson();
+	if (gameWrapper->IsInOnlineGame()) {
+		json_all["game"]["teams"] = this->GetTeamsStateJson();
+		json_all["game"]["players"] = this->GetPlayersStateJson();
+		json_all["game"]["player"] = this->CurrentPlayer.getJson();
+	}
+	return json_all;
+}
+
 void BakkesWebApi::RunWsServer() {
 	ws_server = new BakkesWebApiServer();
 	ws_server->init_asio();
@@ -176,7 +188,6 @@ void BakkesWebApi::SendEvent(string eventName, ApiGame game) {
 void BakkesWebApi::OnHttpRequest(websocketpp::connection_hdl hdl) {
 	BakkesWebApiServer::connection_ptr connection = ws_server->get_con_from_hdl(hdl);
 	connection->append_header("Content-Type", "application/json");
-	connection->append_header("Server", "BakkesWebApi/0.1");
 	if (connection->get_resource() == "/game") {
 		connection->set_body(
 			GameState.getJson().dump()
@@ -184,8 +195,15 @@ void BakkesWebApi::OnHttpRequest(websocketpp::connection_hdl hdl) {
 		connection->set_status(websocketpp::http::status_code::ok);
 		return;
 	}
+	if (connection->get_resource() == "/all") {
+		connection->set_body(
+			GetAllStatesJson().dump()
+		);
+		connection->set_status(websocketpp::http::status_code::ok);
+		return;
+	}
 	if (!gameWrapper->IsInOnlineGame()) {
-		connection->set_body("{false}");
+		connection->set_body("{}");
 		connection->set_status(websocketpp::http::status_code::conflict);
 		return;
 	}
@@ -233,4 +251,5 @@ void BakkesWebApi::onUnload() {
 		ws_server->stop_listening();
 	}
 	ws_connections->clear();
+	delete ws_server;
 }
