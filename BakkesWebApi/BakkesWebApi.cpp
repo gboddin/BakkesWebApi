@@ -42,7 +42,7 @@ void BakkesWebApi::UpdateGameState() {
 	int playlistId = GAMETYPE_MENU;
 	int teamSize = 0;
 	bool gameChanged = false;
-	
+
 	if (GetCurrentGameType() != NULL && GetCurrentGameType()->GetPlaylist().memory_address != NULL) {
 		playlistId = GetCurrentGameType()->GetPlaylist().GetPlaylistId();
 		teamSize = GetCurrentGameType()->GetMaxTeamSize();
@@ -51,12 +51,15 @@ void BakkesWebApi::UpdateGameState() {
 	}
 
 	gameChanged = ((this->GameState.PlaylistId != playlistId) || (this->GameState.TeamSize != teamSize));
+
 	
 	this->GameState.PlaylistId = playlistId;
 	this->GameState.TeamSize = teamSize;
+
 	if(gameChanged) {
 		this->SendEvent("game_changed", this->GameState);
 	}
+	
 	// I'll be back
 	this->gameWrapper->SetTimeout(std::bind(&BakkesWebApi::UpdateGameState, this), 1.0f);
 }
@@ -79,12 +82,16 @@ void BakkesWebApi::UpdatePlayersState() {
 		PlayersState[a].Assists = players.Get(a).GetMatchAssists();
 		PlayersState[a].Saves = players.Get(a).GetMatchSaves();
 		PlayersState[a].BallTouches = players.Get(a).GetBallTouches();
-		PlayersState[a].IsBot = !players.Get(a).IsPlayer();
+		PlayersState[a].IsBot = players.Get(a).GetbBot();
 		PlayersState[a].TeamNum = players.Get(a).GetTeamNum();
 		PlayersState[a].MMR = gameWrapper->GetMMRWrapper().GetPlayerMMR(
 			players.Get(a).GetUniqueId(),
 			gameWrapper->GetMMRWrapper().GetCurrentPlaylist()
 		);
+		PlayersState[a].RankTier = gameWrapper->GetMMRWrapper().GetPlayerRank(players.Get(a).GetUniqueId(), gameWrapper->GetMMRWrapper().GetCurrentPlaylist()).Tier;
+		PlayersState[a].RankDivision = gameWrapper->GetMMRWrapper().GetPlayerRank(players.Get(a).GetUniqueId(), gameWrapper->GetMMRWrapper().GetCurrentPlaylist()).Division;
+		PlayersState[a].RankMatchesPlayed = gameWrapper->GetMMRWrapper().GetPlayerRank(players.Get(a).GetUniqueId(), gameWrapper->GetMMRWrapper().GetCurrentPlaylist()).MatchesPlayed;
+
 		if (!players.Get(a).GetCar().IsNull() && !players.Get(a).GetCar().GetBoostComponent().IsNull()) {
 			PlayersState[a].CurrentBoostAmount = players.Get(a).GetCar().GetBoostComponent().GetCurrentBoostAmount();
 		}
@@ -169,6 +176,18 @@ void BakkesWebApi::SendEvent(string eventName, ApiGame game) {
 		event.dump()
 	);
 }
+
+void BakkesWebApi::SendEvent(string eventName, ApiGame game, ApiPlayer players[], ApiTeam teams[]) {
+	json::JSON event;
+	event["event"] = eventName;
+	event["game"] = game.getJson();
+	event["players"] = this->GetPlayersStateJson();
+
+	this->SendWsPayload(
+		event.dump()
+	);
+}
+
 
 /**
  * HTTP ... hum ... router ?

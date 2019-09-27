@@ -51,7 +51,7 @@ private:
 	void SendEvent(string eventName, ApiGame game);
 	void SendEvent(string eventName, ApiPlayer player);
 	//void SendEvent(string eventName, ApiPlayer player, ApiTeam team);
-	//void SendEvent(string eventName, ApiPlayer player[], ApiTeam team[]);
+	void SendEvent(string eventName, ApiGame game, ApiPlayer players[], ApiTeam teams[]);
 	
 	// Server logic
 	BakkesWebApiServer* ws_server;
